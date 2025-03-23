@@ -14,7 +14,7 @@ const Category = () => {
             url:woman,
         },
         {
-            title:'kid',
+            title:'Kids',
             url:kid,
         },
         
