@@ -9,14 +9,21 @@ import { useDispatch,useSelector } from 'react-redux'
 import ProductCard from '../components/ProductCard'
 import Shop from './Shop'
 
-
+import { API } from "../api";
 
 export default function Home() {
     const dispatch = useDispatch()
     const products = useSelector(state => state.product)
-    useEffect(()=>{
-        dispatch(setProducts(productData))
-    },[dispatch])
+    useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await API.get("products/");
+        dispatch(setProducts(data)); // JSON from Django API
+      } catch (error) {
+        console.error("Failed to load products", error);
+      }
+    })();
+  }, [dispatch]);
     return (
         <>
         <div className='bg-white mt-2 px-4 md:px-16 lg:px-24'>
